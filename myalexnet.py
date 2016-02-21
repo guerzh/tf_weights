@@ -1,3 +1,16 @@
+################################################################################
+#Michael Guerzhoy, 2016
+#AlexNet implementation in TensorFlow, with weights
+#Details: 
+#http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/
+#
+#With code from https://github.com/ethereon/caffe-tensorflow
+#Model from https://github.com/ethereon/caffe-tensorflow
+#Weights from Caffe converted using https://github.com/ethereon/caffe-tensorflow
+#
+#
+################################################################################
+
 from numpy import *
 import os
 from pylab import *
@@ -51,6 +64,8 @@ xdim = train_x.shape[1:]
 ydim = train_y.shape[1]
 
 def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w, relu=True, padding="VALID", group=1):
+    '''From https://github.com/ethereon/caffe-tensorflow
+    '''
     c_i = input.get_shape()[-1]
     assert c_i%group==0
     assert c_o%group==0
