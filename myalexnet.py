@@ -1,5 +1,16 @@
 from numpy import *
 import os
+from pylab import *
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.cbook as cbook
+import time
+from scipy.misc import imread
+from scipy.misc import imresize
+import matplotlib.image as mpimg
+from scipy.ndimage import filters
+import urllib
+from numpy import random
 
 
 import tensorflow as tf
@@ -45,7 +56,11 @@ def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w, relu=True, padding="VAL
     return  tf.reshape(tf.nn.bias_add(conv, biases), conv.get_shape().as_list())
 
 x_dummy = (random.random((1,)+ xdim)/255.).astype(float32)
-x = tf.Variable(x_dummy)
+i = x_dummy.copy()
+i[0,:,:,:] = (imread("dog2.png")[:,:,:3]/255.).astype(float32)
+i = i-mean(i)
+
+x = tf.Variable(i)
 
 #conv1
 #conv(11, 11, 96, 4, 4, padding='VALID', name='conv1')
@@ -139,9 +154,15 @@ fc7 = tf.nn.relu_layer(fc6, fc7W, fc7b)
 #fc(1000, relu=False, name='fc8')
 fc8W = tf.Variable(net_data["fc8"][0])
 fc8b = tf.Variable(net_data["fc8"][1])
-fc8 = tf.nn.xw_plus_b(fc7, fc7W, fc7b)
+fc8 = tf.nn.xw_plus_b(fc7, fc8W, fc8b)
 
 
 #prob
 #softmax(name='prob'))
 prob = tf.nn.softmax(fc8)
+
+init = tf.initialize_all_variables()
+sess = tf.Session()
+sess.run(init)
+
+output = sess.run(prob)
