@@ -30,6 +30,13 @@ import tensorflow as tf
 
 from caffe_classes import class_names
 
+train_x = zeros((1, 227,227,3)).astype(float32)
+train_y = zeros((1, 1000))
+xdim = train_x.shape[1:]
+ydim = train_y.shape[1]
+
+
+
 ################################################################################
 #Read Image
 
@@ -55,13 +62,8 @@ i = i-mean(i)
 #         .fc(1000, relu=False, name='fc8')
 #         .softmax(name='prob'))
 
-train_x = zeros((1, 227,227,3)).astype(float32)
-train_y = zeros((1, 1000))
-
 
 net_data = load("bvlc_alexnet.npy").item()
-xdim = train_x.shape[1:]
-ydim = train_y.shape[1]
 
 def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w, relu=True, padding="VALID", group=1):
     '''From https://github.com/ethereon/caffe-tensorflow
