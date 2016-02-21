@@ -57,7 +57,7 @@ def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w, relu=True, padding="VAL
 
 x_dummy = (random.random((1,)+ xdim)/255.).astype(float32)
 i = x_dummy.copy()
-i[0,:,:,:] = (imread("dog2.png")[:,:,:3]/255.).astype(float32)
+i[0,:,:,:] = (imread("quail227.JPEG")[:,:,:3]).astype(float32)
 i = i-mean(i)
 
 x = tf.Variable(i)
