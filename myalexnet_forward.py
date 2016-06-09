@@ -1,5 +1,5 @@
 ################################################################################
-#Michael Guerzhoy, 2016
+#Michael Guerzhoy and Davi Frossard, 2016
 #AlexNet implementation in TensorFlow, with weights
 #Details: 
 #http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/
@@ -41,6 +41,9 @@ ydim = train_y.shape[1]
 #Read Image
 
 x_dummy = (random.random((1,)+ xdim)/255.).astype(float32)
+
+
+
 i = x_dummy.copy()
 i[0,:,:,:] = (imread("poodle.png")[:,:,:3]).astype(float32)
 i = i-mean(i)
@@ -48,6 +51,13 @@ i = i-mean(i)
 j = x_dummy.copy()
 j[0,:,:,:] = (imread("laska.png")[:,:,:3]).astype(float32)
 j = j-mean(j)
+
+
+im1 = (imread("poodle.png")[:,:,:3]).astype(float32)
+im1 = im1 - mean(im1)
+
+im2 = (imread("laska.png")[:,:,:3]).astype(float32)
+im2 = im2 - mean(im2)
 
 ################################################################################
 
@@ -85,11 +95,11 @@ def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w,  padding="VALID", group
         kernel_groups = tf.split(3, group, kernel)
         output_groups = [convolve(i, k) for i,k in zip(input_groups, kernel_groups)]
         conv = tf.concat(3, output_groups)
-    return  tf.reshape(tf.nn.bias_add(conv, biases), conv.get_shape().as_list())
+    return  tf.reshape(tf.nn.bias_add(conv, biases), [-1]+conv.get_shape().as_list()[1:])
 
 
 
-x = tf.placeholder(tf.float32, ((1,) +  xdim))
+x = tf.placeholder(tf.float32, (None,) + xdim)
 
 
 #conv1
@@ -172,7 +182,7 @@ maxpool5 = tf.nn.max_pool(conv5, ksize=[1, k_h, k_w, 1], strides=[1, s_h, s_w, 1
 #fc(4096, name='fc6')
 fc6W = tf.Variable(net_data["fc6"][0])
 fc6b = tf.Variable(net_data["fc6"][1])
-fc6 = tf.nn.relu_layer(tf.reshape(maxpool5, [1, int(prod(maxpool5.get_shape()[1:]))]), fc6W, fc6b)
+fc6 = tf.nn.relu_layer(tf.reshape(maxpool5, [-1, int(prod(maxpool5.get_shape()[1:]))]), fc6W, fc6b)
 
 #fc7
 #fc(4096, name='fc7')
@@ -196,13 +206,16 @@ sess = tf.Session()
 sess.run(init)
 
 t = time.time()
-output = sess.run(prob, feed_dict = {x:i})
+output = sess.run(prob, feed_dict = {x:[im1,im2]})
 ################################################################################
 
 #Output:
 
-inds = argsort(output)[0,:]
-for i in range(5):
-    print class_names[inds[-1-i]], output[0, inds[-1-i]]
+
+for input_im_ind in range(output.shape[0]):
+    inds = argsort(output)[input_im_ind,:]
+    print "Image", input_im_ind
+    for i in range(5):
+        print class_names[inds[-1-i]], output[input_im_ind, inds[-1-i]]
 
 print time.time()-t
