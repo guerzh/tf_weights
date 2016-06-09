@@ -40,18 +40,6 @@ ydim = train_y.shape[1]
 ################################################################################
 #Read Image
 
-x_dummy = (random.random((1,)+ xdim)/255.).astype(float32)
-
-
-
-i = x_dummy.copy()
-i[0,:,:,:] = (imread("poodle.png")[:,:,:3]).astype(float32)
-i = i-mean(i)
-
-j = x_dummy.copy()
-j[0,:,:,:] = (imread("laska.png")[:,:,:3]).astype(float32)
-j = j-mean(j)
-
 
 im1 = (imread("poodle.png")[:,:,:3]).astype(float32)
 im1 = im1 - mean(im1)
