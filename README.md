@@ -10,4 +10,4 @@ myalexnet is the implementation of AlexNet in TensorFlow
 Weights are available here:
 http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/bvlc_alexnet.npy
 
-
+Try myalexnet_forward.py for a version with a placeholder as the input (useful for training). Otherwise see myalexnet.py
