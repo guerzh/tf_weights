@@ -41,10 +41,10 @@ ydim = train_y.shape[1]
 #Read Image
 
 
-im1 = (imread("poodle.png")[:,:,:3]).astype(float32)
+im1 = (imread("411day.png")[:,:,:3]).astype(float32)
 im1 = im1 - mean(im1)
 
-im2 = (imread("laska.png")[:,:,:3]).astype(float32)
+im2 = (imread("411.png")[:,:,:3]).astype(float32)
 im2 = im2 - mean(im2)
 
 ################################################################################
@@ -64,7 +64,8 @@ im2 = im2 - mean(im2)
 #         .fc(1000, relu=False, name='fc8')
 #         .softmax(name='prob'))
 
-
+#In Python 3, change this to:
+#net_data = load(open("bvlc_alexnet.npy", "rb"), encoding="latin1").item()
 net_data = load("bvlc_alexnet.npy").item()
 
 def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w,  padding="VALID", group=1):
