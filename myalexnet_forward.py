@@ -64,7 +64,7 @@ im2 = im2 - mean(im2)
 #         .fc(1000, relu=False, name='fc8')
 #         .softmax(name='prob'))
 
-#In Python 3, change this to:
+#In Python 3.5, change this to:
 #net_data = load(open("bvlc_alexnet.npy", "rb"), encoding="latin1").item()
 net_data = load("bvlc_alexnet.npy").item()
 
