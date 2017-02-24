@@ -41,9 +41,11 @@ ydim = train_y.shape[1]
 #Read Image
 
 x_dummy = (random.random((1,)+ xdim)/255.).astype(float32)
-i = x_dummy.copy()
-i[0,:,:,:] = (imread("poodle.png")[:,:,:3]).astype(float32)
-i = i-mean(i)
+im = x_dummy.copy()
+im[0,:,:,:] = (imread("kiwi227.png")[:,:,:3]).astype(float32)
+im = im-mean(im)
+im[:, :, 0], im[:, :, 2] = im[:, :, 2], im[:, :, 0]
+
 
 ################################################################################
 
@@ -85,7 +87,7 @@ def conv(input, kernel, biases, k_h, k_w, c_o, s_h, s_w,  padding="VALID", group
 
 
 
-x = tf.Variable(i)
+x = tf.placeholder(tf.float32, im.shape)
 
 #conv1
 #conv(11, 11, 96, 4, 4, padding='VALID', name='conv1')
@@ -190,7 +192,11 @@ init = tf.initialize_all_variables()
 sess = tf.Session()
 sess.run(init)
 
-output = sess.run(prob)
+
+t = time.time()
+output = sess.run(prob, feed_dict={x: im})
+print (time.time()-t), "sec elapsed on avg"
+
 ################################################################################
 
 #Output:
