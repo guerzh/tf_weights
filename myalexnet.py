@@ -42,7 +42,7 @@ ydim = train_y.shape[1]
 
 x_dummy = (random.random((1,)+ xdim)/255.).astype(float32)
 im = x_dummy.copy()
-im[0,:,:,:] = (imread("kiwi227.png")[:,:,:3]).astype(float32)
+im[0,:,:,:] = (imread("quail227.png")[:,:,:3]).astype(float32)
 im = im-mean(im)
 im[:, :, 0], im[:, :, 2] = im[:, :, 2], im[:, :, 0]
 
