@@ -1,4 +1,4 @@
-Note: Note: *not tested on the full test set*; it's only useful for pedagogical purposes. Proceed with caution.
+Note: Note: *not tested on the full test set*; so only useful for pedagogical purposes. Proceed with caution.
 
 Homepage:
 http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/
