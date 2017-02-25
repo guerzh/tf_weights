@@ -3,6 +3,10 @@ Note: Note: *not tested on the full test set*; it's only useful for pedagogical 
 Homepage:
 http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/
 
+With newer versions of TensorFlow, use myalexnet_forward_newtf.py.
+
+With older versions, use myalexnet_forward.py
+
 bvlc_alexnet.py and bvlc_alexnet.npy are generated using https://github.com/ethereon/caffe-tensorflow by converting the AlexNet weights/model from here:
 https://github.com/BVLC/caffe/tree/master/models/bvlc_alexnet
 
