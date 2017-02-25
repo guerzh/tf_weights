@@ -1,4 +1,4 @@
-Note: THIS IMPLEMENTATION DOES NOT GIVE THE EXPECTED PERFORMANCE FOR ALEXNET ON IMAGENET. I hope to fix this at some point, but for now it's only useful for pedagogical purposes.
+Note: Note: *not tested on the full test set*; it's only useful for pedagogical purposes. Proceed with caution.
 
 Homepage:
 http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/
